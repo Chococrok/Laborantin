@@ -2,6 +2,7 @@ import Axios from "axios";
 import * as React from "react";
 import "./App.css";
 import { Mtwoi } from "./components/mtwoi";
+import GitLabService from "./services/GitLabService"
 
 import logo from "./logo.svg";
 
@@ -15,13 +16,14 @@ class App extends React.Component<any, Istate> {
     this.state = { mtwois: [] };
   }
 
-  public async componentDidMount() {
-    const res = await Axios.get(`http://gilab/rest/midstream-simulator/mtwois`);
-    // console.log(res.data);
+  public async componentDidMount(): Promise<void> {
+    const res = await Axios.get(`http://corvus:4000/rest/midstream-simulator/mtwois`);
+    const projects = await GitLabService.getProjects();
+    console.log(projects);
     this.setState({ mtwois: res.data });
   }
 
-  public render() {
+  public render(): JSX.Element {
   const mtwoiItems = this.state.mtwois.map((mtwoi, index) => <Mtwoi key={index} mtwoi={mtwoi}/>);
     return (
       <div className="App">
