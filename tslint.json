@@ -18,6 +18,7 @@
       "parameter",
       "member-variable-declaration",
       "property-declaration"
-    ]
+    ],
+    "interface-over-type-literal": false
   }
 }

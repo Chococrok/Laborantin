@@ -6,11 +6,11 @@ import GitLabService from "./services/GitLabService"
 
 import logo from "./logo.svg";
 
-interface Istate {
+type state = {
   mtwois: any[];
 }
 
-class App extends React.Component<any, Istate> {
+class App extends React.Component<any, state> {
   public constructor(props: any) {
     super(props);
     this.state = { mtwois: [] };
@@ -19,7 +19,11 @@ class App extends React.Component<any, Istate> {
   public async componentDidMount(): Promise<void> {
     const res = await Axios.get(`http://corvus:4000/rest/midstream-simulator/mtwois`);
     const projects = await GitLabService.getProjects();
-    console.log(projects);
+    // const commits = await GitLabService.getCommits(projects[0].id, "toto");
+    // console.log(commits);
+    const branches = await GitLabService.getBranches(projects[0].id);
+    console.log(JSON.stringify(branches));
+    console.log(JSON.stringify(projects, undefined, 2));
     this.setState({ mtwois: res.data });
   }
 
