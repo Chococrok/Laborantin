@@ -1,34 +1,28 @@
-import Axios from "axios";
 import * as React from "react";
 import "./App.css";
-import { Mtwoi } from "./components/mtwoi";
+import { ProjectCard } from "./components/ProjectCard";
 import GitLabService from "./services/GitLabService"
 
 import logo from "./logo.svg";
+import { Project } from "./models";
 
 type state = {
-  mtwois: any[];
+  projects: Project[];
 }
 
 class App extends React.Component<any, state> {
   public constructor(props: any) {
     super(props);
-    this.state = { mtwois: [] };
+    this.state = { projects: [] };
   }
 
   public async componentDidMount(): Promise<void> {
-    const res = await Axios.get(`http://corvus:4000/rest/midstream-simulator/mtwois`);
     const projects = await GitLabService.getProjects();
-    // const commits = await GitLabService.getCommits(projects[0].id, "toto");
-    // console.log(commits);
-    const branches = await GitLabService.getBranches(projects[0].id);
-    console.log(JSON.stringify(branches));
-    console.log(JSON.stringify(projects, undefined, 2));
-    this.setState({ mtwois: res.data });
+    this.setState({ projects });
   }
 
   public render(): JSX.Element {
-  const mtwoiItems = this.state.mtwois.map((mtwoi, index) => <Mtwoi key={index} mtwoi={mtwoi}/>);
+  const projects = this.state.projects.map((project, index) => <ProjectCard key={index} project={project}/>);
     return (
       <div className="App">
         <header className="App-header">
@@ -38,7 +32,7 @@ class App extends React.Component<any, state> {
         <p className="App-intro">
           To get started, edit <code>src/App.tsx</code> and save to reload.
         </p>
-        {mtwoiItems}
+        {projects}
       </div>
     );
   }
