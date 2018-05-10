@@ -1,4 +1,4 @@
-import { Card, CardHeader, withStyles } from "material-ui";
+import { Card, CardHeader } from "material-ui";
 import * as React from "react";
 import { Project } from "../../models";
 import "./ProjectCard.css";
