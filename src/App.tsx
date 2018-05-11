@@ -1,7 +1,6 @@
 import * as React from "react";
-import "./App.css";
+import * as style from "./App.css";
 import { ProjectGrid } from "./components";
-import logo from "./logo.svg";
 import { Project } from "./models";
 import GitLabService from "./services/GitLabService";
 
@@ -22,12 +21,11 @@ class App extends React.Component<any, state> {
 
   public render(): JSX.Element {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+      <div className={style.app}>
+        <header className={style.appHeader}>
+          <h1 className={style.appTitle}>Welcome to React</h1>
         </header>
-        <p className="App-intro">
+        <p className={style.appIntro}>
           To get started, edit <code>src/App.tsx</code> and save to reload.
         </p>
         <ProjectGrid projects={this.state.projects}/>
