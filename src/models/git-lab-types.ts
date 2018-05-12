@@ -1,4 +1,4 @@
-import { Temperature } from "./Temperature";
+import { Temperature } from "./lab-enums";
 type C = {
     temperature: Temperature;
 };
