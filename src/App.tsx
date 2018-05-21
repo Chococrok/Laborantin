@@ -5,7 +5,7 @@ import {
     ProjectGrid
 } from "./components";
 import { Project, Visibility } from "./models";
-import GitLabService from "./services/git-lab-service";
+import GitLabService from "./services/gitlab-service";
 
 type state = {
     projects: Project[];
@@ -13,13 +13,16 @@ type state = {
 };
 
 class App extends React.Component<any, state> {
+
     public constructor(props: any) {
         super(props);
         this.state = {
             projects: [],
             visibility: Visibility.ALL
         };
+
         this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
+        this.handleTokenChange = this.handleTokenChange.bind(this);
     }
 
     public async componentDidMount(): Promise<void> {
@@ -27,9 +30,28 @@ class App extends React.Component<any, state> {
         this.setState({ projects });
     }
 
-    private handleVisibilityChange(event: any) {
-        this.setState({visibility: event.target.value});
-        console.log(event.target.value);
+    private async handleVisibilityChange(visibility: Visibility) {
+        console.log("changing visibility")
+        const projects = await GitLabService.getProjects(visibility);
+
+        this.setState({
+            projects,
+            visibility
+        });
+    }
+
+    private handleTokenChange(value: string) {
+        GitLabService.setToken(value);
+        this.refresh();
+    }
+
+    private async refresh() {
+        const projects = await GitLabService.getProjects(this.state.visibility);
+        const visibility = this.state.visibility;
+        this.setState({
+            visibility,
+            projects
+        });
     }
 
     public render(): JSX.Element {
@@ -44,7 +66,9 @@ class App extends React.Component<any, state> {
                 </header>
                 <div className={style.appContent}>
                     <section>
-                        <ControlMenu onChange={this.handleVisibilityChange}/>
+                        <ControlMenu
+                            onTokenValidation={this.handleTokenChange}
+                            onVisibilityChange={this.handleVisibilityChange} />
                     </section>
                     <section>
                         <ProjectGrid projects={this.state.projects} />

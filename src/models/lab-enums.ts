@@ -7,5 +7,6 @@ export enum Temperature {
 export enum Visibility {
     ALL = "ALL",
     PUBLIC = "PUBLIC",
-    PRIVATE = "PRIVATE"
+    INTERNAL = "INTERNAL",
+    PRIVATE = "PRIVATE",
 };
