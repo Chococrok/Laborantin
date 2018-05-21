@@ -3,12 +3,18 @@ import * as React from "react";
 import { Project } from "../../models";
 import { projectCard } from "./ProjectCard.css";
 
-export function ProjectCard(props: { project: Project, key: number }): JSX.Element {
+type Props = {
+    project: Project;
+    key: number;
+    onClick: (id: number) => void;
+}
+export function ProjectCard(props: Props): JSX.Element {
     return (
         <Card raised={true} className={projectCard}>
             <CardHeader
                 title={props.project.name}
                 subheader={props.project.description || "No description provided. :("}
+                onClick={(id) => props.onClick(props.project.id)}
             />
         </Card>
     );

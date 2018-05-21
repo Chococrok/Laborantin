@@ -45,6 +45,10 @@ class App extends React.Component<any, state> {
         this.refresh();
     }
 
+    private handleProjectChoosen(id: number) {
+        GitLabService.getBranches(id)
+    }
+
     private async refresh() {
         const projects = await GitLabService.getProjects(this.state.visibility);
         const visibility = this.state.visibility;
@@ -71,7 +75,7 @@ class App extends React.Component<any, state> {
                             onVisibilityChange={this.handleVisibilityChange} />
                     </section>
                     <section>
-                        <ProjectGrid projects={this.state.projects} />
+                        <ProjectGrid projects={this.state.projects} onClick={this.handleProjectChoosen} />
                     </section>
                 </div>
             </div>
