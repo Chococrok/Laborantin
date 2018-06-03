@@ -2,13 +2,15 @@ const path = require("path");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const outputPath = path.join(__dirname, "dist");
+
 module.exports = {
     entry: {
         app: "./src/index.tsx",
     },
     output: {
         filename: "bundle.js",
-        path: path.join(__dirname, "dist")
+        path: outputPath
     },
     module: {
         rules: [
@@ -35,7 +37,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(["./dist"]),
+        new CleanWebpackPlugin([outputPath]),
         new HtmlWebpackPlugin({
             title: "laborantin",
             template: "./src/index.html"
@@ -43,7 +45,7 @@ module.exports = {
     ],
     devtool: 'inline-source-map',
     devServer: {
-        contentBase: "./dist"
+        contentBase: outputPath
     },
     resolve: {
         extensions: [".tsx", ".ts", ".js"]

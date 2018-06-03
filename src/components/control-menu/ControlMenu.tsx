@@ -35,7 +35,7 @@ export class ControlMenu extends React.Component<Props, State> {
 
     public render(): JSX.Element {
         return (
-            <div>
+            <section>
                 <p>Show me </p>
                 <select onChange={this.handleVisibilityChange} defaultValue={Visibility.ALL}>
                     <option value={Visibility.ALL}>all</option>
@@ -45,8 +45,8 @@ export class ControlMenu extends React.Component<Props, State> {
                 </select>
                 <p> projects</p>
                 <input onChange={this.handleTokenChange}></input>
-                <button onClick={this.handleTokenValidation}></button>
-            </div>
+                <button onClick={this.handleTokenValidation}>OK</button>
+            </section>
         );
     };
 }

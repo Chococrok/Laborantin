@@ -10,7 +10,7 @@ type Props = {
 }
 export function ProjectCard(props: Props): JSX.Element {
     return (
-        <Card raised={true} className={projectCard}>
+        <Card raised={true} className={projectCard} onClick={() => props.onClick(props.project.id)}>
             <CardHeader
                 title={props.project.name}
                 subheader={props.project.description || "No description provided. :("}

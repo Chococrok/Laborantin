@@ -10,6 +10,7 @@
   },
   "scripts": {
     "wp": "webpack --mode production",
+    "clean": "rm -r ./dist",
     "wpw": "webpack-dev-server --mode development"
   },
   "devDependencies": {

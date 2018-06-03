@@ -24,11 +24,8 @@ class GitLabService {
         Axios.defaults.params = visibility.toUpperCase() === Visibility.ALL
             ? ""
             : { visibility: visibility.toLowerCase() };
+
         const url = "/projects";
-        // const parameters = visibility.toUpperCase() !== Visibility.ALL
-        //     ? `?visibility=${visibility.toLowerCase()}`
-        //     : '';
-        // const url = `${this.baseUrl}/projects${parameters}`;
 
         let data;
         switch (visibility) {

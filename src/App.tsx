@@ -2,7 +2,8 @@ import * as React from "react";
 import * as style from "./App.css";
 import {
     ControlMenu,
-    ProjectGrid
+    ProjectGrid,
+    LaborantinHeader
 } from "./components";
 import { Project, Visibility } from "./models";
 import GitLabService from "./services/gitlab-service";
@@ -45,8 +46,9 @@ class App extends React.Component<any, state> {
         this.refresh();
     }
 
-    private handleProjectChoosen(id: number) {
-        GitLabService.getBranches(id)
+    private async handleProjectChosen(id: number) {
+        const res = await GitLabService.getBranches(id);
+        console.log(res);
     }
 
     private async refresh() {
@@ -61,22 +63,12 @@ class App extends React.Component<any, state> {
     public render(): JSX.Element {
         return (
             <div className={style.app}>
-                <header className={style.appHeader}>
-                    <h1 className={style.appTitle}>Laborantin</h1>
-                    <p className={style.appIntro}>
-                        Welcome to the Gitlab managing tool.
-                        {this.state.visibility}
-                    </p>
-                </header>
+                <LaborantinHeader visibility={this.state.visibility} />
                 <div className={style.appContent}>
-                    <section>
-                        <ControlMenu
-                            onTokenValidation={this.handleTokenChange}
-                            onVisibilityChange={this.handleVisibilityChange} />
-                    </section>
-                    <section>
-                        <ProjectGrid projects={this.state.projects} onClick={this.handleProjectChoosen} />
-                    </section>
+                    <ControlMenu
+                        onTokenValidation={this.handleTokenChange}
+                        onVisibilityChange={this.handleVisibilityChange} />
+                    <ProjectGrid projects={this.state.projects} onClick={this.handleProjectChosen} />
                 </div>
             </div>
         );

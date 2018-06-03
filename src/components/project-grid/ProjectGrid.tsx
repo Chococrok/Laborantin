@@ -10,9 +10,9 @@ type Props = {
 
 export function ProjectGrid(props: Props): JSX.Element {
     return (
-        <div className={projectGrid} >
+        <section className={projectGrid} >
             {props.projects.map((project, index) =>
-            <ProjectCard key={index} project={project} onClick={(id) => props.onClick(id)}/>)}
-        </div>
+            <ProjectCard key={index} project={project} onClick={props.onClick}/>)}
+        </section>
     );
 }
